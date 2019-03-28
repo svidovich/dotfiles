@@ -99,6 +99,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias qqq='exit'
 alias quit='exit'
+alias scheme='mit-scheme'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -123,3 +124,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+# Start xbindkeys. Uses .xbindkeysrc. This will make the top right
+# button on a kensington slimblade double click if configured properly.
+[ -f /usr/bin/xbindkeys ] && /usr/bin/xbindkeys &
