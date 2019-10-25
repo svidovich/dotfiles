@@ -126,4 +126,5 @@ if ! shopt -oq posix; then
 fi
 # Start xbindkeys. Uses .xbindkeysrc. This will make the top right
 # button on a kensington slimblade double click if configured properly.
-[ -f /usr/bin/xbindkeys ] && /usr/bin/xbindkeys &
+# [ -f /usr/bin/xbindkeys ] && /usr/bin/xbindkeys &
+
