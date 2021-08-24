@@ -2,12 +2,14 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 source /etc/environment
-# Set the andoird home
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="$PATH:$ANDROID_HOME/platform-tools"
-#export ANDROID_HOME=/usr/local/android-studio
-export PATH="/home/vivec/.npm-global/bin:$PATH"
+export PATH="/home/mydriasis/.local/bin:${PATH}"
+export PATH="/home/mydriasis/bin:{$PATH}"
+export PATH="${PATH}:/snap/bin"
+export PATH="${PATH}:/home/mydriasis/.cargo/bin"
+
+export GAMING_WINEPREFIX=/home/mydriasis/.wine32
+export PRINTING=/mnt/disk/3dprinting
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -97,13 +99,23 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias python='python3'
+alias pip='pip3'
 alias qqq='exit'
 alias quit='exit'
 alias scheme='mit-scheme'
+alias aga="aws-google-auth -u sam@finitestate.io -I C04e4kupl -S 256220028202 -d 7200 -D -R us-east-1 -p default -a"
+alias lsd="ls -d */"
+alias pyspark-jupyter="docker run -it --rm -p 8888:8888 jupyter/pyspark-notebook"
+alias truerm="shred -n 10 -z -u"
+alias truedu="du -sch .[!.]* * 2>/dev/null | sort -h"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+alias fsvpn-up='openvpn3 session-start --config /home/mydriasis/Desktop/fs.ovpn'
+alias fsvpn-down='openvpn3 session-manage --disconnect --config /home/mydriasis/Desktop/fs.ovpn'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -127,4 +139,58 @@ fi
 # Start xbindkeys. Uses .xbindkeysrc. This will make the top right
 # button on a kensington slimblade double click if configured properly.
 # [ -f /usr/bin/xbindkeys ] && /usr/bin/xbindkeys &
+
+
+function backup {
+  mv $1 $1.bak
+}
+# Requires cura appimage to be on PATH.
+function cura-start {
+  cura 1>/dev/null 2>/dev/null & disown
+}
+# Requires runelite appimage to be on PATH.
+function runelite-start {
+  runelite 1>/dev/null 2>/dev/null & disown
+}
+
+function apprun {
+  app=$1
+  if [ ! -x ${HOME}/bin/${app} ]; then
+     echo "No such application ${app}. Please place it in ${HOME}/bin, and make sure it is executable."
+  elif [ -z ${app} ]; then
+     echo "Specify the app to run!"
+  else
+    echo "Starting ${app}..."
+    (${app} 1>/dev/null 2>/dev/null & disown) > /dev/null
+  fi
+}
+
+function explore {
+  dir=$1
+  [ -z ${dir} ] && dir=.
+  (nemo ${dir} 1>/dev/null 2>/dev/null & disown) > /dev/null
+}
+
+function aomx {
+  WINEPREFIX=$GAMING_WINEPREFIX wine "/home/mydriasis/.wine32/drive_c/Program Files/Microsoft Games/Age of Mythology/aomx.exe"
+}
+
+function aom-original {
+  WINEPREFIX=$GAMING_WINEPREFIX wine "/home/mydriasis/.wine32/drive_c/Program Files/Microsoft Games/Age of Mythology/aom.exe"
+}
+
+function aomx-vpn {
+  aomx OverrideAddress="192.168.51.3"
+}
+
+# Git autocompletion
+source ~/git-completion.bash
+
+
+# export PATH=${PATH}:"$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
