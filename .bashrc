@@ -104,7 +104,6 @@ alias pip='pip3'
 alias qqq='exit'
 alias quit='exit'
 alias scheme='mit-scheme'
-alias aga="aws-google-auth -u sam@finitestate.io -I C04e4kupl -S 256220028202 -d 7200 -D -R us-east-1 -p default -a"
 alias lsd="ls -d */"
 alias pyspark-jupyter="docker run -it --rm -p 8888:8888 jupyter/pyspark-notebook"
 alias truerm="shred -n 10 -z -u"
@@ -113,9 +112,6 @@ alias truedu="du -sch .[!.]* * 2>/dev/null | sort -h"
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-alias fsvpn-up='openvpn3 session-start --config /home/mydriasis/Desktop/fs.ovpn'
-alias fsvpn-down='openvpn3 session-manage --disconnect --config /home/mydriasis/Desktop/fs.ovpn'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -179,16 +175,8 @@ function aom-original {
   WINEPREFIX=$GAMING_WINEPREFIX wine "/home/mydriasis/.wine32/drive_c/Program Files/Microsoft Games/Age of Mythology/aom.exe"
 }
 
-function aomx-vpn {
-  aomx OverrideAddress="192.168.51.3"
-}
-
 # Git autocompletion
 source ~/git-completion.bash
-
-
-# export PATH=${PATH}:"$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
