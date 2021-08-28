@@ -163,8 +163,15 @@ function apprun {
 
 function explore {
   dir=$1
-  [ -z ${dir} ] && dir=.
+  [ -z ${dir} ] && dir=$(pwd)
   (nemo ${dir} 1>/dev/null 2>/dev/null & disown) > /dev/null
+}
+
+function serve {
+  dir=$1
+  [ -z ${dir} ] && dir=$(pwd)
+  echo "Serving ${dir} with python HTTP server."
+  python -m http.server --directory ${dir}
 }
 
 function aomx {
